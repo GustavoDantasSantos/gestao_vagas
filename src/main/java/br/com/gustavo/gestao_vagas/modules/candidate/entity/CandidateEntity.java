@@ -56,11 +56,11 @@ public class CandidateEntity {
     }
 
     public void setDescription(String description) {
-      this.description = description;
+        this.description = description;
     }
 
     public void setCurriculum(String curriculum) {
-      this.curriculum = curriculum;
+        this.curriculum = curriculum;
     }
 
     public void setId(UUID id) {
