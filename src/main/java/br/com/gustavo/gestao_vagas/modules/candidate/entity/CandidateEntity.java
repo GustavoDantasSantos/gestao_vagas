@@ -1,11 +1,15 @@
 package br.com.gustavo.gestao_vagas.modules.candidate.entity;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 
+@Entity
 public class CandidateEntity {
     private UUID id;
     private String name;
@@ -18,6 +22,9 @@ public class CandidateEntity {
     private String password;
     private String description;
     private String curriculum;
+
+    @CreationTimestamp
+    private LocalDateTime localDateTime;
 
     public String getName() {
         return this.name;
@@ -47,6 +54,10 @@ public class CandidateEntity {
         return this.id;
     }
 
+    public LocalDateTime getDataTime() {
+        return this.localDateTime;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -73,5 +84,9 @@ public class CandidateEntity {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public void setDataTime(LocalDateTime dataTime) {
+        this.localDateTime = dataTime;
     }
 }
