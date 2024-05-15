@@ -10,12 +10,12 @@ public class CreateCandidateService {
     @Autowired
     private CandidateRepository repository;
 
-    public void execute(CandidateEntity candidate) throws Exception {
+    public CandidateEntity execute(CandidateEntity candidate) throws Exception {
         var candidateFound = this.repository.findByUsernameOrEmail(candidate.getUsername(), candidate.getEmail());
-        if(candidateFound == null) {
-            throw new Exception("Usuário não existe");
+        if(candidateFound != null) {
+            throw new Exception("Usuário já existe");
         }
 
-        this.repository.save(candidate);
+        return this.repository.save(candidate);
     }
 }
