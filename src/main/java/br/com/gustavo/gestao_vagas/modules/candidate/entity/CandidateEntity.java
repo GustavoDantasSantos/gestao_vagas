@@ -7,10 +7,16 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 
-@Entity
+@Entity(name = "candidate")
 public class CandidateEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
     private String username;
@@ -24,7 +30,7 @@ public class CandidateEntity {
     private String curriculum;
 
     @CreationTimestamp
-    private LocalDateTime localDateTime;
+    private LocalDateTime createdAt;
 
     public String getName() {
         return this.name;
@@ -55,7 +61,7 @@ public class CandidateEntity {
     }
 
     public LocalDateTime getDataTime() {
-        return this.localDateTime;
+        return this.createdAt;
     }
 
     public void setName(String name) {
@@ -87,6 +93,6 @@ public class CandidateEntity {
     }
 
     public void setDataTime(LocalDateTime dataTime) {
-        this.localDateTime = dataTime;
+        this.createdAt = dataTime;
     }
 }

@@ -1,10 +1,12 @@
 package br.com.gustavo.gestao_vagas.modules.candidate.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.gustavo.gestao_vagas.modules.candidate.entity.CandidateEntity;
 import br.com.gustavo.gestao_vagas.modules.candidate.repository.CandidateRepository;
 
+@Service
 public class CreateCandidateService {
     
     @Autowired
