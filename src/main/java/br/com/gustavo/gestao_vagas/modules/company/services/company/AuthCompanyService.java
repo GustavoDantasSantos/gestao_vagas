@@ -1,5 +1,8 @@
 package br.com.gustavo.gestao_vagas.modules.company.services.company;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,7 +42,11 @@ public class AuthCompanyService {
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
-        String token = JWT.create().withIssuer("javagas").withSubject(companyExists.getId().toString()).sign(algorithm);
+        String token = JWT.create()
+                        .withIssuer("javagas")
+                        .withSubject(companyExists.getId().toString())
+                        .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
+                        .sign(algorithm);
 
         return token;
     }
