@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +31,7 @@ public class JobEntity {
     @JoinColumn(name = "company_id")
     private CompanyEntity companyEntity; 
 
-    @JoinColumn(name = "company_id")
+    @Column(name = "company_id", insertable = false, updatable = false)
     private UUID companyId;
 
     @CreationTimestamp
