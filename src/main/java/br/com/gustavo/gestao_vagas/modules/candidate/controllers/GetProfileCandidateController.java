@@ -4,12 +4,15 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.gustavo.gestao_vagas.modules.candidate.dto.ProfileCandidateResponseDTO;
 import br.com.gustavo.gestao_vagas.modules.candidate.services.GetProfileCandidateService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 @RequestMapping("/candidate")
@@ -18,6 +21,8 @@ public class GetProfileCandidateController {
     @Autowired
     private GetProfileCandidateService service;
 
+    @GetMapping("/")
+    @PreAuthorize("hasRole('CANDIDATE')")
     public ResponseEntity<Object> getProfile(HttpServletRequest request){
         var candidateId = request.getAttribute("candidateId");
         try {

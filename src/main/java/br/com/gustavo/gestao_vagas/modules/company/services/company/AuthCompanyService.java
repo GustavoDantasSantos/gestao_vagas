@@ -2,6 +2,7 @@ package br.com.gustavo.gestao_vagas.modules.company.services.company;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import br.com.gustavo.gestao_vagas.modules.company.dto.AuthCompanyDTO;
+import br.com.gustavo.gestao_vagas.modules.company.dto.AuthCompanyResponseDTO;
 import br.com.gustavo.gestao_vagas.modules.company.entities.CompanyEntity;
 import br.com.gustavo.gestao_vagas.modules.company.repositories.CompanyRepository;
 
@@ -27,7 +29,7 @@ public class AuthCompanyService {
     @Autowired
     private PasswordEncoder encoder;
 
-    public String execute(AuthCompanyDTO companyDTO) throws Exception{
+    public AuthCompanyResponseDTO execute(AuthCompanyDTO companyDTO) throws Exception{
         CompanyEntity companyExists = this.repository.findByUsername(companyDTO.getUsername());
 
         if(companyExists == null) {
@@ -46,8 +48,11 @@ public class AuthCompanyService {
                         .withIssuer("javagas")
                         .withSubject(companyExists.getId().toString())
                         .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
+                        .withClaim("roles", Arrays.asList("COMPANY"))
                         .sign(algorithm);
+        
+        AuthCompanyResponseDTO authCompanyResponseDTO = AuthCompanyResponseDTO.builder().acessToken(token).build();
 
-        return token;
+        return authCompanyResponseDTO;
     }
 }
