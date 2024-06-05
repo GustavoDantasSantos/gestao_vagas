@@ -30,7 +30,7 @@ public class AuthCompanyService {
     public String execute(AuthCompanyDTO companyDTO) throws Exception{
         CompanyEntity companyExists = this.repository.findByUsername(companyDTO.getUsername());
 
-        if(companyExists == null) {
+        if(companyExists != null) {
             throw new Exception("Empresa já existe");
         }
 
